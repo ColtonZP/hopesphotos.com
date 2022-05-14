@@ -15,7 +15,7 @@ const Home: NextPage = () => {
           name="description"
           content="Animal photographer based in Seattle, Washington."
         />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
       <NavBar />
@@ -47,31 +47,6 @@ const Home: NextPage = () => {
             />
           </Carousel.Item>
         </Carousel>
-
-        {/* <div */}
-        {/*  id="carouselExampleSlidesOnly" */}
-        {/*  className="carousel slide flex-grow-1 py-2" */}
-        {/*  data-bs-ride="carousel"> */}
-        {/*  <div className="carousel-inner h-100"> */}
-        {/*    <div className="carousel-item active  h-100"> */}
-        {/*      <Image */}
-        {/*        src="/doggo.jpeg" */}
-        {/*        alt="mail" */}
-        {/*        layout="fill" */}
-        {/*        objectFit="cover" */}
-        {/*      /> */}
-        {/*      /!* <Image src="/doggo.jpeg" alt="mail" width={100} height={100} /> *!/ */}
-        {/*    </div> */}
-        {/*    <div className="carousel-item  h-100"> */}
-        {/*      <Image */}
-        {/*        src="/doggo2.jpeg" */}
-        {/*        alt="mail" */}
-        {/*        layout="fill" */}
-        {/*        objectFit="cover" */}
-        {/*      /> */}
-        {/*    </div> */}
-        {/*  </div> */}
-        {/* </div> */}
       </main>
 
       <Footer />

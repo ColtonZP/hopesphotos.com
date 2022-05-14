@@ -45,4 +45,8 @@ const Footer = ({ fixed }: { fixed?: boolean }) => {
   )
 }
 
+Footer.defaultProps = {
+  fixed: false,
+}
+
 export default Footer

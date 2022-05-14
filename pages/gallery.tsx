@@ -13,7 +13,7 @@ const Gallery = () => {
           name="description"
           content="Animal photographer based in Seattle, Washington."
         />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
       <NavBar />
