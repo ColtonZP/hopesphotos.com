@@ -22,7 +22,7 @@ const Home: NextPage = () => {
 
       <main className="container flex-grow-1 d-flex flex-column">
         <h1 className="mb-4 text-center">
-          Animal photographer based in Seattle, Washington.
+          Photographer based in Seattle, Washington.
         </h1>
 
         <Carousel

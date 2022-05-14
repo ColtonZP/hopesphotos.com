@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { Container } from 'react-bootstrap'
 import Link from 'next/link'
 
-const Footer = () => {
+const Footer = ({ fixed }: { fixed?: boolean }) => {
   return (
-    <footer className="py-4">
+    <footer className={`py-4 ${fixed ? 'fixed-bottom' : ''}`}>
       <Container className="d-flex justify-content-center">
         <div className="d-inline mx-3">
           <Link href="/">
