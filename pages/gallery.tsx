@@ -1,10 +1,28 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Head from 'next/head'
+import { withSSRContext } from 'aws-amplify'
+import { NextPage } from 'next'
+import { AmplifyS3Image } from '@aws-amplify/ui-react-v1'
 import { NavBar } from '../components/Navbar'
 import Footer from '../components/Footer'
+import { listPhotos } from '../src/graphql/queries'
 
-const Gallery = () => {
+export async function getServerSideProps() {
+  const SSR = withSSRContext()
+
+  const { data } = await SSR.API.graphql({
+    query: listPhotos,
+  })
+
+  return {
+    props: {
+      photos: data.listPhotos.items,
+    },
+  }
+}
+
+const Gallery: NextPage<{ photos: any }> = ({ photos }) => {
   return (
     <>
       <Head>
@@ -18,17 +36,14 @@ const Gallery = () => {
 
       <NavBar />
 
-      <main className="container flex-grow-1 d-flex flex-column">
-        <Container>
-          <Row xs={1} sm={1} md={4} lg={8}>
-            {[
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20, 21, 22, 23, 24,
-            ].map(num => (
-              <Col key={num}>{num}</Col>
-            ))}
-          </Row>
-        </Container>
+      <main className="container">
+        <Row>
+          {photos.map(photo => (
+            <Col xs={12} sm={12} md={6} lg={3} key={photo.key} className="mb-3">
+              <AmplifyS3Image imgKey={photo.key} alt="dog" />
+            </Col>
+          ))}
+        </Row>
       </main>
 
       <Footer fixed />

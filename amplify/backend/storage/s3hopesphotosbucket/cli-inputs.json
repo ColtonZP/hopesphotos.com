@@ -1,0 +1,13 @@
+{
+  "resourceName": "s3hopesphotosbucket",
+  "bucketName": "hopesphotosbucket",
+  "policyUUID": "dd70e1cd",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "READ",
+    "CREATE_AND_UPDATE"
+  ]
+}

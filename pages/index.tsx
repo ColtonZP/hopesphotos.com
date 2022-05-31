@@ -1,12 +1,33 @@
+import { graphqlOperation, Storage, withSSRContext } from 'aws-amplify'
+import { Image } from '@aws-amplify/ui-react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React from 'react'
+
 import { Carousel } from 'react-bootstrap'
+
+import { useEffect, useState } from 'react'
+import { AmplifyS3Image } from '@aws-amplify/ui-react-v1'
+import { S3ProviderListOutputItem } from '@aws-amplify/storage'
 import { NavBar } from '../components/Navbar'
 import Footer from '../components/Footer'
+import { listPhotos } from '../src/graphql/queries'
 
-const Home: NextPage = () => {
+export async function getServerSideProps() {
+  const SSR = withSSRContext()
+
+  const { data } = await SSR.API.graphql({
+    query: listPhotos,
+    variables: { filter: { key: { contains: 'homepage/' } } },
+  })
+
+  return {
+    props: {
+      photos: data.listPhotos.items,
+    },
+  }
+}
+
+const Home: NextPage<{ photos: any }> = ({ photos }) => {
   return (
     <div className="vh-100 d-flex flex-column">
       <Head>
@@ -30,22 +51,20 @@ const Home: NextPage = () => {
           indicators={false}
           fade
           className="carousel slide flex-grow-1">
-          <Carousel.Item className="h-100">
-            <Image
-              src="/doggo.jpeg"
-              alt="mail"
-              layout="fill"
-              objectFit="cover"
-            />
-          </Carousel.Item>
-          <Carousel.Item className="h-100">
-            <Image
-              src="/doggo2.jpeg"
-              alt="mail"
-              layout="fill"
-              objectFit="cover"
-            />
-          </Carousel.Item>
+          {!!photos.length &&
+            photos.map(photo => (
+              <Carousel.Item
+                className="h-0"
+                style={{ height: 0, minHeight: '100%' }}
+                key={photo.key}>
+                <AmplifyS3Image
+                  imgKey={photo.key}
+                  alt="dog"
+                  imgProps={{ objectFit: 'cover' }}
+                  className="h-100"
+                />
+              </Carousel.Item>
+            ))}
         </Carousel>
       </main>
 
@@ -53,5 +72,31 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+// export async function getServerSideProps() {
+//   const SSR = withSSRContext({ modules: [Storage] })
+//   const photos: { key: string; url: string }[] = []
+//
+//   // const files = Storage.list('homepage/').then(
+//   //   listRes => listRes.filter(file => file.key?.match(/\.(jpg|jpeg|png)$/i)),
+//   //   // .map(file =>
+//   //   //   Storage.get(file.key!).then(fileRes => {
+//   //   //     photos.push({
+//   //   //       key: file.key!,
+//   //   //       url: fileRes,
+//   //   //     })
+//   //   //   }),
+//   //   // ),
+//   // )
+//
+//   // const files = Storage.list('homepage/').then(listRes => listRes)
+//
+//   return {
+//     props: {
+//       photos,
+//       files,
+//     },
+//   }
+// }
 
 export default Home
