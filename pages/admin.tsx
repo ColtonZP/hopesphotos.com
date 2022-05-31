@@ -3,10 +3,12 @@ import { API, graphqlOperation, Storage, withSSRContext } from 'aws-amplify'
 import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import Head from 'next/head'
 import { Authenticator } from '@aws-amplify/ui-react'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Observable } from 'zen-observable-ts'
 import { NextPage } from 'next'
 import { AmplifyS3Image } from '@aws-amplify/ui-react-v1'
 import { NavBar } from '../components/Navbar'
+// eslint-disable-next-line import/no-unresolved
 import '@aws-amplify/ui-react/styles.css'
 import { createPhoto, deletePhoto } from '../src/graphql/mutations'
 import { listPhotos } from '../src/graphql/queries'
@@ -31,7 +33,7 @@ export async function getServerSideProps() {
 }
 
 const Admin: NextPage<{ photosQuery: any }> = ({ photosQuery }) => {
-  const [validated, setValidated] = useState(false)
+  const [validated] = useState(false)
   const [photosData, setPhotosData] = useState(photosQuery)
 
   useEffect(() => {
