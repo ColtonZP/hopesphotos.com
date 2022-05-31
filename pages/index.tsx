@@ -1,13 +1,11 @@
-import { graphqlOperation, Storage, withSSRContext } from 'aws-amplify'
-import { Image } from '@aws-amplify/ui-react'
+import { withSSRContext } from 'aws-amplify'
+
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import { Carousel } from 'react-bootstrap'
 
-import { useEffect, useState } from 'react'
 import { AmplifyS3Image } from '@aws-amplify/ui-react-v1'
-import { S3ProviderListOutputItem } from '@aws-amplify/storage'
 import { NavBar } from '../components/Navbar'
 import Footer from '../components/Footer'
 import { listPhotos } from '../src/graphql/queries'
