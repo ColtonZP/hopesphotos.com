@@ -160,7 +160,6 @@ const Admin: NextPage<{ photosQuery: any }> = ({ photosQuery }) => {
                           }>
                           {photo.key.match('homepage') ? 'homepage' : 'gallery'}
                         </Card.Title>
-                        <Card.Text>{photo.id}</Card.Text>
                         <Card.Text>{photo.key}</Card.Text>
                         <Button
                           variant="danger"
