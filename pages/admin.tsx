@@ -111,7 +111,7 @@ const Admin: NextPage<{ photosQuery: any }> = ({ photosQuery }) => {
       <NavBar />
 
       <main className="container flex-grow-1 d-flex flex-column">
-        <Authenticator>
+        <Authenticator hideSignUp>
           {({ signOut }) => (
             <>
               <h1>Admin Panel</h1>
