@@ -29,20 +29,14 @@ const Home = ({ images }) => (
         indicators={false}
         fade
         className="carousel slide flex-grow-1">
-        {!!images.length &&
-          images?.map(image => (
-            <Carousel.Item
-              className="h-0"
-              style={{ height: 0, minHeight: '100%' }}
-              key={image.id}>
-              <Image
-                src={image.url}
-                alt="mail"
-                layout="fill"
-                objectFit="cover"
-              />
-            </Carousel.Item>
-          ))}
+        {images.map(image => (
+          <Carousel.Item
+            className="h-0"
+            style={{ height: 0, minHeight: '100%' }}
+            key={image.id}>
+            <Image src={image.url} alt="mail" layout="fill" objectFit="cover" />
+          </Carousel.Item>
+        ))}
       </Carousel>
     </main>
 

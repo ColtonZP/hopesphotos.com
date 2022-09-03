@@ -12,11 +12,13 @@ export const getImagesFromFolder = async (folder: string) => {
 
   const { resources } = imagesFetch
 
-  return resources.map(resource => ({
-    id: resource.asset_id,
-    title: resource.public_id,
-    url: resource.secure_url,
-    width: resource.width,
-    height: resource.height,
-  }))
+  return (
+    resources?.map(resource => ({
+      id: resource.asset_id,
+      title: resource.public_id,
+      url: resource.secure_url,
+      width: resource.width,
+      height: resource.height,
+    })) || []
+  )
 }

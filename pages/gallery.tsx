@@ -29,27 +29,20 @@ const Gallery = ({ images }) => {
           />
         )}
         <Row>
-          {!!images.length &&
-            images.map((image, index) => (
-              <Col
-                xs={12}
-                sm={12}
-                md={6}
-                lg={3}
-                key={image.id}
-                className="mb-3">
-                <Image
-                  src={image.url}
-                  alt="mail"
-                  min-width="100%"
-                  layout="responsive"
-                  width="100%"
-                  height="100%"
-                  objectFit="cover"
-                  onClick={() => setPhotoViewUrl(images[index].url)}
-                />
-              </Col>
-            ))}
+          {images.map((image, index) => (
+            <Col xs={12} sm={12} md={6} lg={3} key={image.id} className="mb-3">
+              <Image
+                src={image.url}
+                alt="mail"
+                min-width="100%"
+                layout="responsive"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                onClick={() => setPhotoViewUrl(images[index].url)}
+              />
+            </Col>
+          ))}
         </Row>
       </main>
 
