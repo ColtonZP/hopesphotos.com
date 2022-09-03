@@ -29,7 +29,7 @@ const Home = ({ images }) => (
         indicators={false}
         fade
         className="carousel slide flex-grow-1">
-        {images.map(image => (
+        {images?.map(image => (
           <Carousel.Item
             className="h-0"
             style={{ height: 0, minHeight: '100%' }}
@@ -45,7 +45,7 @@ const Home = ({ images }) => (
 )
 
 export async function getStaticProps() {
-  const images = (await getImagesFromFolder('homepage')) || []
+  const images = await getImagesFromFolder('homepage')
 
   return {
     props: {

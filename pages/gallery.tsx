@@ -29,7 +29,7 @@ const Gallery = ({ images }) => {
           />
         )}
         <Row>
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <Col xs={12} sm={12} md={6} lg={3} key={image.id} className="mb-3">
               <Image
                 src={image.url}
@@ -52,7 +52,7 @@ const Gallery = ({ images }) => {
 }
 
 export async function getStaticProps() {
-  const images = (await getImagesFromFolder('gallery')) || []
+  const images = await getImagesFromFolder('gallery')
 
   return {
     props: {
