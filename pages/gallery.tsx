@@ -1,28 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import Head from 'next/head'
-import { withSSRContext } from 'aws-amplify'
-import { NextPage } from 'next'
-import { AmplifyS3Image } from '@aws-amplify/ui-react-v1'
-import { NavBar } from '../components/Navbar'
-import Footer from '../components/Footer'
-import { listPhotos } from '../src/graphql/queries'
+import Image from 'next/image'
+import { NavBar, Footer, PhotoView } from '../components'
+import { getImagesFromFolder } from '../helpers'
 
-export async function getServerSideProps() {
-  const SSR = withSSRContext()
+const Gallery = ({ images }) => {
+  const [photoViewUrl, setPhotoViewUrl] = useState('')
 
-  const { data } = await SSR.API.graphql({
-    query: listPhotos,
-  })
-
-  return {
-    props: {
-      photos: data.listPhotos.items,
-    },
-  }
-}
-
-const Gallery: NextPage<{ photos: any }> = ({ photos }) => {
   return (
     <>
       <Head>
@@ -37,18 +22,43 @@ const Gallery: NextPage<{ photos: any }> = ({ photos }) => {
       <NavBar />
 
       <main className="container">
+        {photoViewUrl && (
+          <PhotoView
+            imageUrl={photoViewUrl}
+            setPhotoViewUrl={setPhotoViewUrl}
+          />
+        )}
         <Row>
-          {photos.map(photo => (
-            <Col xs={12} sm={12} md={6} lg={3} key={photo.key} className="mb-3">
-              <AmplifyS3Image imgKey={photo.key} alt="dog" />
+          {images.map((image, index) => (
+            <Col xs={12} sm={12} md={6} lg={3} key={image.id} className="mb-3">
+              <Image
+                src={image.url}
+                alt="mail"
+                min-width="100%"
+                layout="responsive"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                onClick={() => setPhotoViewUrl(images[index].url)}
+              />
             </Col>
           ))}
         </Row>
       </main>
 
-      <Footer fixed />
+      <Footer />
     </>
   )
+}
+
+export async function getStaticProps() {
+  const images = await getImagesFromFolder('gallery')
+
+  return {
+    props: {
+      images,
+    },
+  }
 }
 
 export default Gallery
