@@ -45,7 +45,7 @@ const Home = ({ images }) => (
 )
 
 export async function getStaticProps() {
-  const images = await getImagesFromFolder('homepage')
+  const images = (await getImagesFromFolder('homepage')) || []
 
   return {
     props: {

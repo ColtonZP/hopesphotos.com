@@ -52,7 +52,7 @@ const Gallery = ({ images }) => {
 }
 
 export async function getStaticProps() {
-  const images = await getImagesFromFolder('gallery')
+  const images = (await getImagesFromFolder('gallery')) || []
 
   return {
     props: {
